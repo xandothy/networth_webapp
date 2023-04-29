@@ -59,8 +59,8 @@ def add_debt_data(debt):
             form = st.form(f"form_{debt['name']}")
         except:
             form = st.form(f"form_{debt['name']}_{time.time()}")
-        current_amount = form.number_input("Amount", min_value=0.0, value=float(debt["amount"]), step=0.001)
-        current_value = form.number_input("Value", min_value=0.0, value=float(debt["value"]), step=0.001)
+        current_amount = form.number_input("Amount", min_value=0.0, value=float(debt["amount"]), step=0.001, format="%.18f")
+        current_value = form.number_input("Value", min_value=0.0, value=float(debt["value"]), step=0.001, format="%.18f")
         form.submitted = form.form_submit_button("Update")
 
         if form.submitted:
@@ -81,8 +81,8 @@ with st.sidebar.form("Add debt"):
     debt_account = st.selectbox("Account", conn.get_accounts()["name"])
     debt_type = st.selectbox("Type", conn.get_debt_types()["name"])
     date = st.date_input("Date")
-    amount = st.number_input("Amount", min_value=0.0, value=0.0, step=0.001)
-    value = st.number_input("Value", min_value=0.0, value=0.0, step=0.001)
+    amount = st.number_input("Amount", min_value=0.0, value=0.0, step=0.001, format="%.18f")
+    value = st.number_input("Value", min_value=0.0, value=0.0, step=0.001, format="%.18f")
     submitted = st.form_submit_button("Add")
     
     if submitted:
