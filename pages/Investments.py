@@ -2,6 +2,7 @@ import streamlit as st
 
 from data_connection import Connector
 import datetime
+import time
 import os
 from dotenv import load_dotenv
 
@@ -57,7 +58,10 @@ def add_investment_data(investment):
     st.line_chart(df, x="date", y=["amount", "value"])
 
     with st.expander("Update position"):
-        form = st.form(f"form_{investment['name']}")
+        try:
+            form = st.form(f"form_{investment['name']}")
+        except:
+            form = st.form(f"form_{investment['name']}_{time.time()}")
         current_amount = form.number_input("Amount", min_value=0.0, value=float(investment["amount"]), step=0.001)
         current_value = form.number_input("Value", min_value=0.0, value=float(investment["value"]), step=0.001)
         form.submitted = form.form_submit_button("Update")

@@ -55,7 +55,10 @@ def add_debt_data(debt):
     st.line_chart(df, x="date", y=["amount", "value"])
 
     with st.expander("Update position"):
-        form = st.form(f"form_{debt['name']}")
+        try:
+            form = st.form(f"form_{debt['name']}")
+        except:
+            form = st.form(f"form_{debt['name']}_{time.time()}")
         current_amount = form.number_input("Amount", min_value=0.0, value=float(debt["amount"]), step=0.001)
         current_value = form.number_input("Value", min_value=0.0, value=float(debt["value"]), step=0.001)
         form.submitted = form.form_submit_button("Update")
