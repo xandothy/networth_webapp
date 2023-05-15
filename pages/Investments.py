@@ -39,6 +39,9 @@ st.divider()
 
 def add_investment_data(investment):
     history = conn.get_investment_history(investment["ID"])
+    if investment["amount"] <= 0:
+        return
+
     l = history['value'].tolist()
     col1, col2 = st.columns(2)
     with col1:
